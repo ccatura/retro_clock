@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('./fonts/PressStart2P-vaV7\ \(2\).ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Arcade';
+    src: url('./fonts/Arcade.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BoldLedBoard';
+    src: url('./fonts/BoldLedBoard7-4BpK6.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'AdvancedLedBoard';
+    src: url('./fonts/AdvancedLedBoard7-8qm2.ttf') format('truetype');
+}
+
+:root {
+    --adjustX: 50px;
+    --adjustY: 0px;
+    --adjustFontSize: 19;
+    --glowBlue: 0 0 30px #008fd6, 0 0 100px #008fd6;
+    --glowWhite: 0 0 30px #aaaaaa, 0 0 100px #aaaaaa;
+    --glowRed: 0 0 30px #aa0000, 0 0 100px #aa0000;
+    --glowOff: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+}
+
+.outer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px dashed red; */
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    flex-direction: column;
+}
+
+.inner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid blue; */
+    margin-top: var(--adjustY);
+    margin-left: var(--adjustX);
+}
+
+.clock-numbers {
+    font-family: 'BoldLedBoard', cursive;
+    font-size: calc(100% * var(--adjustFontSize));
+    color: #ffffff; 
+    text-shadow: var(--glowBlue);
+}
+
+#test-shape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid green;
+    width: 200px;
+    height: 200px;
+}
+
+.pixel-white {
+    background-color: #ffffff;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+}
+
+
+
+
+
+.blink {
+    animation: blink-animation 2s steps(1, start) infinite;
+}
+
+@keyframes blink-animation {
+    0%, 50% {
+        opacity: 1;
+    }
+    50.01%, 100% {
+        opacity: 0;
+    }
+}
