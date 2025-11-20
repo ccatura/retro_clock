@@ -45,9 +45,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 2px dashed red; */
-    width: 100vw;
-    height: 100vh;
+    /* border: 4px dashed orange; */
+    width: 98%;
+    height: 98vh;
     margin: 0px;
     flex-direction: column;
 }
@@ -56,41 +56,121 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid blue; */
-    margin-top: var(--adjustY);
-    margin-left: var(--adjustX);
+    flex-flow: row nowrap;
+    /* border: 10px dotted white; */
+    width: 100%;
+    height: 100%;
 }
 
 .clock-numbers {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
     font-family: 'BoldLedBoard', cursive;
     font-size: calc(100% * var(--adjustFontSize));
     color: #ffffff; 
     text-shadow: var(--glowBlue);
+    width: 100%;
+    height: 50%;
 }
 
-#test-shape {
+#shape-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 5px solid green;
-    width: 200px;
-    height: 200px;
+    flex-direction: column;
+    /* border: 5px solid green; */
+    /* width: 200px; */
+    /* height: 200px; */
+}
+
+#hours1 {
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 3px dashed green; */
+    width: 22.22%;
+    height: 100%;
+}
+
+#hours2 {
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 3px dashed green; */
+    width: 22.22%;
+    height: 100%;
+}
+
+#minutes1 {
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 3px dashed green; */
+    width: 22.22%;
+    height: 100%;
+}
+
+#minutes2 {
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 3px dashed green; */
+    width: 22.22%;
+    height: 100%;
+}
+
+#colon {
+    display: flex;
+    flex-flow: column nowrap;
+    /* border: 3px dashed green; */
+    width: 11.11%;
+    height: 100%;
+    animation: blink-animation 2s steps(1, start) infinite;
+}
+
+.pixel-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    /* border: 2px dashed white; */
+    width: 100%;
+    height: 100%;
+}
+
+.pixel {
+    width: 100%;
+    /* height: 20px; */
+    margin: 3px;
+    /* border-radius: 2px; */
+    /* box-shadow: var(--glowBlue); */
 }
 
 .pixel-white {
     background-color: #ffffff;
-    width: 20px;
-    height: 20px;
-    margin: 2px;
+}
+
+.pixel-red {
+    background-color: #ff0000;
+}
+
+.pixel-blue {
+    background-color: #0000ff;
+}
+
+.pixel-light-blue {
+    background-color: #5454d8;
+}
+
+.pixel-yellow {
+    background-color: #ffff00;
+}
+
+.pixel-blank {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 
 
 
-
-.blink {
-    animation: blink-animation 2s steps(1, start) infinite;
-}
 
 @keyframes blink-animation {
     0%, 50% {
