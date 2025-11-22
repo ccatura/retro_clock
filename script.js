@@ -296,6 +296,10 @@ const pixelData = [
     }
 ]; 
 
+
+
+
+
 updateTime();
 setInterval(updateTime, 1000);
 
@@ -370,5 +374,30 @@ function makeShapeContainer(data, itemName, shapeContainer) {
             shapeRowContainer.appendChild(pixel);
         }
     }
+    adjustPixelSize();
 
+}
+
+
+// working on it
+function adjustPixelSize() {
+const viewportWidth = window.innerWidth;
+console.log(`Viewport (visible window) width: ${viewportWidth}px`);
+
+var finalPixelSize = viewportWidth / 36;
+
+const allPixels = document.querySelectorAll('.pixel'); 
+const allPixelRowHeight = document.querySelectorAll('.pixel-row');
+console.log(allPixels);
+
+// allPixels.style.width = finalPixelSize + 'px';
+
+allPixels.forEach(element => {
+    element.style.width = finalPixelSize + 'px';
+    element.style.height = finalPixelSize + 'px';
+});
+
+allPixelRowHeight.forEach(element => {
+    element.style.height = finalPixelSize + 'px';
+});
 }
