@@ -296,7 +296,18 @@ const pixelData = [
     }
 ]; 
 
+const fullscreenButton = document.getElementById('fullscreenToggle');
 
+fullscreenButton.addEventListener('click', () => {
+    // document.fullscreenElement returns the element in fullscreen, or null if not.
+    if (!document.fullscreenElement) {
+        // If not fullscreen, request it for the entire HTML document (the page).
+        document.documentElement.requestFullscreen();
+    } else {
+        // If currently fullscreen, exit it.
+        document.exitFullscreen();
+    }
+});
 
 
 
@@ -401,3 +412,7 @@ allPixelRowHeight.forEach(element => {
     element.style.height = finalPixelSize + 'px';
 });
 }
+
+
+
+
