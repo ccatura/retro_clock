@@ -3,23 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
     <script src="script.js" defer></script>
     <title>Retro Clock</title>
 </head>
 <body>
-<button id="fullscreenToggle">Toggle Full Screen</button>
     <div class="outer-container">
+        <div id="top-div">
+            <div class="custom-button">
+                12/24
+            </div>
+            <div class="custom-button">
+                Glow
+            </div>
+            <div id="fullscreenToggle" class="custom-button">
+                <i class="material-icons" style="font-size:48px;color:gray">fullscreen</i>
+            </div>
+        </div>
         <div class="inner-container">
             <div class="clock-numbers">
                 <span id="hours1"></span><span id="hours2"></span><span id="colon"></span><span id="minutes1"></span><span id="minutes2"></span>
             </div>
         </div> 
-
-            <div id="shape-container">
-                
-            </div>
+        <div id="bottom-div">
+        </div>
     </div>
+  
 
 
 

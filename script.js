@@ -7,8 +7,9 @@ const hoursBox1   = document.getElementById('hours1');
 const minutesBox1 = document.getElementById('minutes1');
 const hoursBox2   = document.getElementById('hours2');
 const minutesBox2 = document.getElementById('minutes2');
-const colonBox   = document.getElementById('colon');
+const colonBox    = document.getElementById('colon');
 
+/* Pixel shape data. This will be replaced with an external JSON file later */
 const pixelData = [
     {
         "name": "0",
@@ -296,6 +297,10 @@ const pixelData = [
     }
 ]; 
 
+updateTime(); // Initial call to set the time immediately
+const callUpdateTime = setInterval(updateTime, 1000); // Update time every second
+
+/* Fullscreen toggle button functionality */
 const fullscreenButton = document.getElementById('fullscreenToggle');
 
 fullscreenButton.addEventListener('click', () => {
@@ -303,19 +308,20 @@ fullscreenButton.addEventListener('click', () => {
     if (!document.fullscreenElement) {
         // If not fullscreen, request it for the entire HTML document (the page).
         document.documentElement.requestFullscreen();
-    } else {
-        // If currently fullscreen, exit it.
-        document.exitFullscreen();
+        fullscreenButton.style.display = 'none'; // hide button in fullscreen
     }
 });
 
+setInterval(onFullscreenChange, 1000); // check every second for fullscreen change
+function onFullscreenChange() {
+    if (!document.fullscreenElement) {
+        fullscreenButton.style.display = 'flex'; // show button when not in fullscreen
+    }
+}
 
-
-updateTime();
-setInterval(updateTime, 1000);
-
-// get the time and update the display
+/* Get the time and update the display */
 function updateTime() {
+
     const now = new Date(); // current date and time
     let hours = now.getHours(); // get current hours
     const meridian = hours >= 12 ? 'PM' : 'AM'; // determine AM or PM
@@ -326,24 +332,20 @@ function updateTime() {
     const minutes = String(now.getMinutes()).padStart(2, '0'); // Ensure two digits for minutes
 
     if (hours > 9) {
-        makeShapeContainer(pixelData, hours.toString()[0], hoursBox1) // update hours 1st digit
+        makeShapeInContainer(pixelData, hours.toString()[0], hoursBox1) // update hours 1st digit
+    } else {
+        hoursBox1.innerHTML = ''; // Clear the container if the first digit is not needed
     }
-    makeShapeContainer(pixelData, hours.toString()[1], hoursBox2) // update hours 2nd digit
-    makeShapeContainer(pixelData, "colon", colonBox); // colon
-    makeShapeContainer(pixelData, minutes.toString()[0], minutesBox1); // update minutes 1st digit
-    makeShapeContainer(pixelData, minutes.toString()[1], minutesBox2); // update minutes 2nd digit
+    makeShapeInContainer(pixelData, hours.toString()[1], hoursBox2) // update hours 2nd digit
+    makeShapeInContainer(pixelData, "colon", colonBox); // colon
+    makeShapeInContainer(pixelData, minutes.toString()[0], minutesBox1); // update minutes 1st digit
+    makeShapeInContainer(pixelData, minutes.toString()[1], minutesBox2); // update minutes 2nd digit
     console.log("Time updated: " + hours + ":" + minutes + " " + meridian);
 }
 
-
-const shapeContainer = document.getElementById('shape-container');
-// makeShapeContainer(pixelData, "pac-man", shapeContainer);
-
-
-// Make pixel art from shape data - function version
-function makeShapeContainer(data, itemName, shapeContainer) {
-    // console.log("Item Name: " + itemName);
-    shapeContainer.innerHTML = '';
+/* Create pixel shape in given container */
+function makeShapeInContainer(data, itemName, shapeContainer) {
+    shapeContainer.innerHTML = ''; // Clear previous content
 
     const pixelObject = data.find(item => item.name === itemName);
     const frameCount = pixelObject.shape.length;
@@ -352,15 +354,11 @@ function makeShapeContainer(data, itemName, shapeContainer) {
 
     for (let y = 0; y < rowsPerFrame; y++) {
         const itemNameObject = pixelData.find(item => item.name === itemName);
-
-        // console.log("Width: " + itemNameObject.shape[0].grid[0].length);
-
         const pixelRow = document.createElement('div');
         const pixelRowID = `${shapeContainer.id}-${itemName}-row-${y+1}`;
         pixelRow.setAttribute('id', pixelRowID);
         pixelRow.classList.add('pixel-row');
         shapeContainer.appendChild(pixelRow);
-
         const obectRowData = itemNameObject.shape[0].grid;
 
         for (let x = 0; x < itemNameObject.shape[0].grid[0].length; x++) {
@@ -386,30 +384,37 @@ function makeShapeContainer(data, itemName, shapeContainer) {
         }
     }
     adjustPixelSize();
-
 }
 
 
-// working on it
+
+
+
+
+
+
+
+
+// working on this
 function adjustPixelSize() {
 const viewportWidth = window.innerWidth;
-console.log(`Viewport (visible window) width: ${viewportWidth}px`);
+// console.log(`Viewport (visible window) width: ${viewportWidth}px`);
 
 var finalPixelSize = viewportWidth / 36;
 
 const allPixels = document.querySelectorAll('.pixel'); 
 const allPixelRowHeight = document.querySelectorAll('.pixel-row');
-console.log(allPixels);
+// console.log(allPixels);
 
 // allPixels.style.width = finalPixelSize + 'px';
 
 allPixels.forEach(element => {
-    element.style.width = finalPixelSize + 'px';
-    element.style.height = finalPixelSize + 'px';
+    element.style.width = (finalPixelSize) + 'px'; // setting width
+    element.style.height = (finalPixelSize - 7) + 'px'; // setting height. subtracting 7px to account for gaps/margins
 });
 
 allPixelRowHeight.forEach(element => {
-    element.style.height = finalPixelSize + 'px';
+    element.style.height = finalPixelSize + 'px'; // setting height of row to match pixel height
 });
 }
 

@@ -34,12 +34,17 @@
 
 body {
     display: flex;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
     flex-flow: column nowrap;
     margin: 0;
     padding: 0;
     background-color: #111;
+    height: 100vh;
+    color: gray;
+    font-family: 'arial', sans-serif;
+    font-weight: bold;
+    font-size: 2em;
 }
 
 .outer-container {
@@ -48,7 +53,7 @@ body {
     align-items: center;
     /* border: 4px dashed orange; */
     width: 98%;
-    height: 98vh;
+    height: 98%;
     margin: 0px;
     flex-direction: column;
 }
@@ -58,9 +63,46 @@ body {
     justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
-    /* border: 10px dotted white; */
+    /* border: 2px dotted white; */
     width: 100%;
     height: 100%;
+}
+
+#top-div {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    /* border: 2px solid blue; */
+    padding: 0 20px 0 20px;
+}
+
+#bottom-div {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid blue; */
+    padding: 0 20px 0 20px;
+}
+
+#fullscreenToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 70px; */
+    height: 50px;
+    cursor: pointer;
+    /* border: yellow solid 1px; */
+}
+
+.custom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    /* border: yellow solid 1px; */
 }
 
 .clock-numbers {
@@ -92,7 +134,7 @@ body {
     flex-flow: column nowrap;
     /* border: 1px dashed green; */
     width: 22.22%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 #hours2 {
@@ -100,7 +142,7 @@ body {
     flex-flow: column nowrap;
     /* border: 1px dashed green; */
     width: 22.22%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 #minutes1 {
@@ -108,7 +150,7 @@ body {
     flex-flow: column nowrap;
     /* border: 1px dashed green; */
     width: 22.22%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 #minutes2 {
@@ -116,7 +158,7 @@ body {
     flex-flow: column nowrap;
     /* border: 1px dashed green; */
     width: 22.22%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 #colon {
@@ -124,7 +166,7 @@ body {
     flex-flow: column nowrap;
     /* border: 1px dashed green; */
     width: 11.11%;
-    height: 100%;
+    /* height: 100%; */
     animation: blink-animation 2s steps(1, start) infinite;
 }
 
@@ -135,15 +177,7 @@ body {
     /* border: 1px dashed white; */
     width: 100%;
     /* height: 100%; */
-    margin: 3px;
-}
-
-.pixel {
-    width: 100%;
-    /* height: 20px; */
-    margin: 3px;
-    /* border-radius: 2px; */
-    /* box-shadow: var(--glowBlue); */
+    /* margin: 3px; */
 }
 
 .pixel-white {
@@ -168,6 +202,12 @@ body {
 
 .pixel-blank {
     background-color: rgba(0, 0, 0, 0);
+}
+
+.pixel {
+    /* width: 100%; */
+    margin: 3px;
+    /* box-shadow: var(--glowBlue); */
 }
 
 
