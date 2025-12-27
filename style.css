@@ -27,7 +27,8 @@
     --adjustY: 0px;
     --adjustFontSize: 19;
     --glowBlue: 0 0 30px #008fd6, 0 0 100px #008fd6;
-    --glowWhite: 0 0 30px #aaaaaa, 0 0 100px #aaaaaa;
+    --glowLightBlue: 0 0 30px rgb(84, 84, 216, .8);
+    --glowWhite: 0 0 30px rgba(255, 255, 255, .3);
     --glowRed: 0 0 30px #aa0000, 0 0 100px #aa0000;
     --glowOff: none;
 }
@@ -41,7 +42,7 @@ body {
     padding: 0;
     background-color: #111;
     height: 100vh;
-    color: gray;
+    color: white;
     font-family: 'arial', sans-serif;
     font-weight: bold;
     font-size: 2em;
@@ -87,7 +88,7 @@ body {
     padding: 0 20px 0 20px;
 }
 
-#fullscreenToggle {
+#fullscreen-toggle {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -182,6 +183,8 @@ body {
 
 .pixel-white {
     background-color: #ffffff;
+    /* box-shadow: inset 0 0 10px #000000, var(--glowWhite); */
+    /* box-shadow: var(--glowWhite); */
 }
 
 .pixel-red {
@@ -194,6 +197,7 @@ body {
 
 .pixel-light-blue {
     background-color: #5454d8;
+    /* box-shadow: var(--glowLightBlue); */
 }
 
 .pixel-yellow {
@@ -207,7 +211,6 @@ body {
 .pixel {
     /* width: 100%; */
     margin: 3px;
-    /* box-shadow: var(--glowBlue); */
 }
 
 

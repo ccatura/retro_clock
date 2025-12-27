@@ -3,11 +3,13 @@
    blue ghosts fo to the left, followed by 1 space, then pacman
 */
 
-const hoursBox1   = document.getElementById('hours1');
-const minutesBox1 = document.getElementById('minutes1');
-const hoursBox2   = document.getElementById('hours2');
-const minutesBox2 = document.getElementById('minutes2');
-const colonBox    = document.getElementById('colon');
+const hoursBox1     = document.getElementById('hours1');
+const minutesBox1   = document.getElementById('minutes1');
+const hoursBox2     = document.getElementById('hours2');
+const minutesBox2   = document.getElementById('minutes2');
+const colonBox      = document.getElementById('colon');
+const fullscreenToggleInner = document.getElementById('fullscreen-toggle-inner');
+const fullscreenButton      = document.getElementById('fullscreen-toggle');
 
 /* Pixel shape data. This will be replaced with an external JSON file later */
 const pixelData = [
@@ -301,21 +303,26 @@ updateTime(); // Initial call to set the time immediately
 const callUpdateTime = setInterval(updateTime, 1000); // Update time every second
 
 /* Fullscreen toggle button functionality */
-const fullscreenButton = document.getElementById('fullscreenToggle');
+console.log(fullscreenButton.innerText);
 
 fullscreenButton.addEventListener('click', () => {
     // document.fullscreenElement returns the element in fullscreen, or null if not.
     if (!document.fullscreenElement) {
-        // If not fullscreen, request it for the entire HTML document (the page).
         document.documentElement.requestFullscreen();
-        fullscreenButton.style.display = 'none'; // hide button in fullscreen
+        fullscreenToggleInner.innerText = 'fullscreen_exit';
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullscreenToggleInner.innerText = 'fullscreen';
+        }
     }
 });
 
 setInterval(onFullscreenChange, 1000); // check every second for fullscreen change
 function onFullscreenChange() {
     if (!document.fullscreenElement) {
-        fullscreenButton.style.display = 'flex'; // show button when not in fullscreen
+        // fullscreenButton.style.display = 'flex'; // show button when not in fullscreen
+        fullscreenToggleInner.innerText = 'fullscreen';
     }
 }
 
@@ -400,9 +407,10 @@ function adjustPixelSize() {
 const viewportWidth = window.innerWidth;
 // console.log(`Viewport (visible window) width: ${viewportWidth}px`);
 
-var finalPixelSize = viewportWidth / 36;
+var finalPixelSize = viewportWidth / 36; // 36 pixels wide total for the full time display
+var pixelGapSize = finalPixelSize / 18; // gap is 1/18th of pixel size
 
-const allPixels = document.querySelectorAll('.pixel'); 
+const allPixels = document.querySelectorAll('.pixel');
 const allPixelRowHeight = document.querySelectorAll('.pixel-row');
 // console.log(allPixels);
 
@@ -410,7 +418,8 @@ const allPixelRowHeight = document.querySelectorAll('.pixel-row');
 
 allPixels.forEach(element => {
     element.style.width = (finalPixelSize) + 'px'; // setting width
-    element.style.height = (finalPixelSize - 7) + 'px'; // setting height. subtracting 7px to account for gaps/margins
+    element.style.height = (finalPixelSize - (pixelGapSize * 2)) + 'px'; // setting height minus gap
+    element.style.margin = (pixelGapSize) + 'px';
 });
 
 allPixelRowHeight.forEach(element => {
