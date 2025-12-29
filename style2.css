@@ -11,8 +11,6 @@
     --glowWhite: 0 0 30px rgba(255, 255, 255, .3);
     --glowRed: 0 0 30px #aa0000, 0 0 100px #aa0000;
     --glowOff: none;
-
-    --borderThickness: 0px;
 }
 
 body {
@@ -34,7 +32,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: var(--borderThickness) dashed orange;
+    border: 4px dashed orange;
     width: 98%;
     height: 98%;
     margin: 0px;
@@ -46,7 +44,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-flow: row nowrap;
-    border: var(--borderThickness) dashed white;
+    border: 2px dotted white;
     width: 100%;
     height: 100%;
 }
@@ -56,7 +54,7 @@ body {
     height: 50px;
     display: flex;
     justify-content: space-around;
-    border: var(--borderThickness) solid blue;
+    border: 2px solid blue;
     padding: 0 20px 0 20px;
 }
 
@@ -66,7 +64,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: var(--borderThickness) solid blue;
+    border: 2px solid blue;
     padding: 0 20px 0 20px;
 }
 
@@ -77,7 +75,7 @@ body {
     /* width: 70px; */
     height: 50px;
     cursor: pointer;
-    border: var(--borderThickness) solid yellow;
+    border: yellow solid 1px;
 }
 
 .custom-button {
@@ -85,59 +83,82 @@ body {
     justify-content: center;
     align-items: center;
     width: 20%;
-    border:  var(--borderThickness) solid yellow;
+    border: yellow solid 1px;
 }
 
-/* #clock-container {
+.clock-numbers {
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row nowrap;
+    /* font-family: 'BoldLedBoard', cursive; */
+    /* font-size: calc(100% * var(--adjustFontSize)); */
+    /* color: #ffffff;  */
+    /* text-shadow: var(--glowBlue); */
+    width: 100%;
+    /* height: 50%; */
+}
+
+#shape-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: var(--borderThickness) solid green;
-} */
-
-.clock-numbers {
-    border: var(--borderThickness) solid red;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-flow: column nowrap;
-    width: 100%;
-    position: relative;
+    border: 5px solid green;
+    /* width: 200px; */
+    /* height: 200px; */
 }
 
-#character-grid {
-    border: var(--borderThickness) solid green;
+#hours1 {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-flow: column nowrap;
-    width: 100%;
+    border: 1px dashed green;
+    width: 22.22%;
+    /* height: 100%; */
+}
 
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
+#hours2 {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px dashed green;
+    width: 22.22%;
+    /* height: 100%; */
+}
+
+#minutes1 {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px dashed green;
+    width: 22.22%;
+    /* height: 100%; */
+}
+
+#minutes2 {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px dashed green;
+    width: 22.22%;
+    /* height: 100%; */
+}
+
+#colon {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px dashed green;
+    width: 11.11%;
+    /* height: 100%; */
+    animation: blink-animation 2s steps(1, start) infinite;
 }
 
 .pixel-row {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    border: var(--borderThickness) dashed white;
+    border: 1px dashed white;
     width: 100%;
-    /* height: 50px; */
-}
-
-.pixel {
-    border: 1px solid rgb(30, 30, 30);
-    width: calc(100% / 32);
-    height: 30px;
-}
-
-.pixel-blank {
-    background-color: rgba(0, 0, 0, 0);
+    /* height: 100%; */
+    /* margin: 3px; */
 }
 
 .pixel-white {
@@ -148,33 +169,39 @@ body {
 
 .pixel-red {
     background-color: #ff0000;
-    /* box-shadow: var(--glowRed); */
-}
-
-.pixel-pink {
-    background-color: #ff8cd3;
-    /* box-shadow: var(--glowRed); */
 }
 
 .pixel-blue {
     background-color: #0000ff;
-    /* box-shadow: var(--glowBlue); */
+}
+
+.pixel-light-blue {
+    background-color: #5454d8;
+    /* box-shadow: var(--glowLightBlue); */
 }
 
 .pixel-yellow {
     background-color: #ffff00;
-    /* box-shadow: var(--glowLightBlue); */
 }
 
-.pixel-colon {
-    background-color: #5454d8;
-    animation: colonBlinker 1s steps(1) infinite;
-    z-index: -10;
+.pixel-blank {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.pixel {
+    /* width: 100%; */
+    margin: 3px;
 }
 
 
-@keyframes colonBlinker {
-    0% {opacity: 1;}
-    50% {opacity: 0;}
-    100% {opacity: 1;}
+
+
+
+@keyframes blink-animation {
+    0%, 50% {
+        opacity: 1;
+    }
+    50.01%, 100% {
+        opacity: 0;
+    }
 }
