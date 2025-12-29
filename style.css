@@ -96,7 +96,7 @@ body {
     border: var(--borderThickness) solid green;
 } */
 
-.clock-numbers {
+.clock-grid {
     border: var(--borderThickness) solid red;
     display: flex;
     justify-content: space-between;

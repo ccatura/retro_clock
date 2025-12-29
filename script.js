@@ -515,10 +515,10 @@ var place4 = 17;
 var place5 = 25;
 
 // Get containers
-var clockNumbersContainer = document.querySelector('.clock-numbers');
+var clockGridContainer = document.querySelector('.clock-grid');
 var characterGridContainer = document.getElementById('character-grid');
 
-createPixelGrid(clockNumbersContainer, "bottom"); // Create bottom panel grid for clock numbers
+createPixelGrid(clockGridContainer, "bottom"); // Create bottom panel grid for clock numbers
 createPixelGrid(characterGridContainer, "top"); // Create top panel grid for characters
 printCharToPanel("colon", place3, "bottom"); // Print colon to the bottom panel
 
@@ -526,6 +526,9 @@ printCharToPanel("colon", place3, "bottom"); // Print colon to the bottom panel
 displayTimeDigits(); // Initial display of time
 var a = setInterval(() => {
     displayTimeDigits();
+    const userSetWidth = clockGridContainer.offsetWidth;
+    clockGridContainer.style.height = `${userSetWidth / 2}px`;
+    getAndSetPixelSize(); // Adjust pixel sizes to be square
 }, 1000);
 
 
@@ -729,7 +732,16 @@ function getPixelDataByName(name) {
     return null;
 }
 
+function getAndSetPixelSize() {
+    const allPixels = document.querySelectorAll('.pixel');
+    const pixel = document.querySelector('.pixel');
+    const pixelWidth = pixel.offsetWidth;
 
+
+    allPixels.forEach(div => {
+        div.style.height = pixelWidth + "px";
+    });
+}
 
 
 
