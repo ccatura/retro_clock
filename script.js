@@ -253,27 +253,6 @@ const pixelData = [
                 ]
             },
             {
-                "frameName": 1,
-                "grid": [
-                    "0000000000000000",
-                    "000000RRRR000000",
-                    "0000RRRRRRRR0000",
-                    "000RRRRRRRRRR000",
-                    "00RRRRRRRRRRRR00",
-                    "00RRRWWRRRRWWR00",
-                    "00RRWWWWRRWWWW00",
-                    "0RRRWWBBRRWWBBR0",
-                    "0RRRWWBBRRWWBBR0",
-                    "0RRRRWWRRRRWWRR0",
-                    "0RRRRRRRRRRRRRR0",
-                    "0RRRRRRRRRRRRRR0",
-                    "0RRRRRRRRRRRRRR0",
-                    "0RRRR0RRRR0RRRR0",
-                    "00RR000RR000RR00",
-                    "0000000000000000"
-                ]
-            },
-            {
                 "frameName": 2,
                 "grid": [
                     "0000000000000000",
@@ -501,28 +480,32 @@ const pixelData = [
 ];
 
 // Grid dimensions and offsets
-var xWidth = 32;
-var yHeight = 16;
+var xWidth = 32; // Width of the pixel grid
+var yHeight = 16; // Height of the pixel grid
 var yOffset = 3; // Vertical offset to center digits in grid
-var startX = 1; // Initial horizontal position
+var startX = 1; // Initial horizontal position for characters
 var characterSpeed = 40; // Speed of animation in milliseconds
+var releaseDelay = 15; // Delay in seconds between character group releases
+const fullscreenToggleInner = document.getElementById('fullscreen-toggle-inner');
+const fullscreenButton = document.getElementById('fullscreen-toggle');
 
-// Positions for each digit
+// Positions for each clock digit
 var place1 = -1;
 var place2 = 7;
 var place3 = 15;
 var place4 = 17;
 var place5 = 25;
 
-// Get containers
+// Get the 2 main pixel containers
 var clockGridContainer = document.querySelector('.clock-grid');
 var characterGridContainer = document.getElementById('character-grid');
 
+setInterval(onFullscreenChange, 1000); // check every second for fullscreen change
 createPixelGrid(clockGridContainer, "bottom"); // Create bottom panel grid for clock numbers
 createPixelGrid(characterGridContainer, "top"); // Create top panel grid for characters
 printCharToPanel("colon", place3, "bottom"); // Print colon to the bottom panel
 
-// Update time
+// Updates time
 displayTimeDigits(); // Initial display of time
 var a = setInterval(() => {
     displayTimeDigits();
@@ -531,14 +514,16 @@ var a = setInterval(() => {
     getAndSetPixelSize(); // Adjust pixel sizes to be square
 }, 1000);
 
+// printCharToPanel("ghost-blinky", 10, "top", 1); // Initialize first digit as blank
 
 countDownToGroupRelease(); // Start countdown to release characters
 
+/* sets interval to release a group of characters at the predetermined interval */
 function countDownToGroupRelease() {
     var characterTimer = setInterval(() => {
         let now = new Date();
         let seconds = now.getSeconds();
-        if (seconds % 15 === 0) {
+        if (seconds % releaseDelay === 0) {
             releaseTheGroup();
             clearInterval(characterTimer); // Clear interval to prevent multiple triggers
             setTimeout(() => {
@@ -548,8 +533,8 @@ function countDownToGroupRelease() {
     }, 500);
 }
 
-
-function animateCharacter(characterName="pac-man", direction="right") {
+/* animates a character moving across the top panel */
+function animateCharacter(characterName="pac-man", direction="right", halfSpeed=true) {
     let frameCount = getPixelDataByName(characterName).shape.length; // Get number of frames for the character
     var charFrame = 0;
 
@@ -569,11 +554,19 @@ function animateCharacter(characterName="pac-man", direction="right") {
             if (pos < xWidth) {
                 printCharToPanel(characterName, pos, "top", charFrame);
                 pos++;
-                if (charFrame < frameCount - 1) {
-                    charFrame++;
-                } else {
-                    charFrame = 0;
-                }
+                
+                // Advance to next frame for that specific character
+                
+                    if (charFrame < frameCount - 1) {
+                        if (!halfSpeed) {
+                            charFrame ++;
+                        } else {
+                            charFrame += .5;
+                        }
+                    } else {
+                        charFrame = 0;
+                    }
+
             } else {
                 clearInterval(characters);
             }
@@ -597,10 +590,11 @@ function animateCharacter(characterName="pac-man", direction="right") {
     }
 }
 
+/* releases a group of characters */
 function releaseTheGroup(powerUp=false) {
-    let characterReleaseDelay = characterSpeed * 16; // Delay before first character is released
+    let characterReleaseDelay = characterSpeed * 20; // Delay between each character release, calculated based on character speed and width (16 pixels)
     let delayAfterPacMan = 600;
-    animateCharacter("pac-man", "right"); // Release Pac-Man
+    animateCharacter("pac-man", "right", true); // Release Pac-Man
 
     if (powerUp) {
         var ghost1 = "ghost-frightened";
@@ -634,6 +628,7 @@ function releaseTheGroup(powerUp=false) {
 
 }
 
+/* displays the current time in HH:MM format */
 function displayTimeDigits() {
     let now = new Date();
     let hours24 = now.getHours();
@@ -656,10 +651,11 @@ function displayTimeDigits() {
     printCharToPanel(secondMinuteDigit, place5, "bottom");    
 }
 
+/* prints a static character to a specified panel at a specified position */
 function printCharToPanel(charName, digitPlace, panelName, chosenFrame=0) {
     let digitData = getPixelDataByName(charName);
     // console.log(digitData.shape.length); // Log number of frames
-    let shape = digitData.shape[chosenFrame].grid
+    let shape = digitData.shape[Math.floor(chosenFrame)].grid
 
 
     for (let y = 0; y < shape.length; y++) { // Loop through rows
@@ -708,6 +704,7 @@ function printCharToPanel(charName, digitPlace, panelName, chosenFrame=0) {
     }
 }
 
+/* creates a pixel grid inside a specified container */
 function createPixelGrid(container, name) {
     for (let y = 0; y < yHeight; y++) {
         let pixelRow = document.createElement('div');
@@ -723,6 +720,7 @@ function createPixelGrid(container, name) {
     }
 }
 
+/* retrieves pixel data using character name */
 function getPixelDataByName(name) {
     for (let i = 0; i < pixelData.length; i++) {
         if (pixelData[i].name === name) {
@@ -732,6 +730,7 @@ function getPixelDataByName(name) {
     return null;
 }
 
+/* sets pixel height to match width for square pixels */
 function getAndSetPixelSize() {
     const allPixels = document.querySelectorAll('.pixel');
     const pixel = document.querySelector('.pixel');
@@ -743,7 +742,26 @@ function getAndSetPixelSize() {
     });
 }
 
+/* Fullscreen toggle button functionality */
+fullscreenButton.addEventListener('click', () => {
+    // document.fullscreenElement returns the element in fullscreen, or null if not.
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        fullscreenToggleInner.innerText = 'fullscreen_exit';
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+            fullscreenToggleInner.innerText = 'fullscreen';
+        }
+    }
+});
 
+function onFullscreenChange() {
+    if (!document.fullscreenElement) {
+        // fullscreenButton.style.display = 'flex'; // show button when not in fullscreen
+        fullscreenToggleInner.innerText = 'fullscreen';
+    }
+}
 
 
 
