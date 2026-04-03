@@ -138,12 +138,12 @@ body {
     height: 30px;
 
     
-    /* background-image: url('./images/light.png');
+    background-image: url('./images/light-60.png');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat; */
+    background-repeat: no-repeat;
    
-    box-shadow: inset 0 0 .5vw .5vw rgba(0, 0, 0, 0.4);
+    /* box-shadow: inset 0 0 .5vw .5vw rgba(0, 0, 0, 0.4); */
 }
 
 .pixel-blank {
