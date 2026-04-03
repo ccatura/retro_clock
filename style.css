@@ -137,10 +137,13 @@ body {
     width: calc(100% / 32);
     height: 30px;
 
-    background-image: url('./images/light.png');
-    background-size: cover;      /* Scales image to fill the div without stretching */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents the image from tiling */
+    
+    /* background-image: url('./images/light.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
+   
+    box-shadow: inset 0 0 .5vw .5vw rgba(0, 0, 0, 0.4);
 }
 
 .pixel-blank {
@@ -149,33 +152,33 @@ body {
 
 .pixel-white {
     background-color: #ffffff;
-    box-shadow: inset 0 0 10px #000000, var(--glowWhite);
+    /* box-shadow: inset 0 0 10px #000000, var(--glowWhite); */
     /* box-shadow: var(--glowWhite); */
 }
 
 .pixel-red {
     background-color: #ff0000;
-    box-shadow: var(--glowRed);
+    /* box-shadow: var(--glowRed); */
 }
 
 .pixel-pink {
     background-color: #ff8cd3;
-    box-shadow: var(--glowPink);
+    /* box-shadow: var(--glowPink); */
 }
 
 .pixel-blue {
     background-color: #0000ff;
-    box-shadow: var(--glowBlue);
+    /* box-shadow: var(--glowBlue); */
 }
 
 .pixel-yellow {
     background-color: #ffff00;
-    box-shadow: var(--glowYellow);
+    /* box-shadow: var(--glowYellow); */
 }
 
 .pixel-colon {
     background-color: #5454d8;
-    box-shadow: var(--glowLightBlue);
+    /* box-shadow: var(--glowLightBlue); */
     animation: colonBlinker 1s steps(1) infinite;
     z-index: -10;
 }
